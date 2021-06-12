@@ -1,0 +1,31 @@
+body {
+    font-size: 16;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    flex: 1 0 0;
+    font-size: 150%
+}
+
+.main {
+    margin-top: 100px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 300px;
+}
+
+.quiz {
+    list-style-type: none;
+    padding: 0;
+    margin: 3rem auto;
+    max-width: 90vw;
+    width: 50ch;
+    display: none;
+    font-size: 125%
+}
+
+li:hover {
+    opacity: 0.5;
+}
