@@ -97,6 +97,7 @@ function startCountdown() {
             //countdownEl.textContent = countdown;
             countdownEl.innerHTML = 'Timer: ' + countdown;
             countdown--;
+            
         } else {
             console.log("countdown < 0");
             clearInterval(countdownInterval);
