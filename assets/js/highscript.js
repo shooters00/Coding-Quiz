@@ -5,13 +5,14 @@ var highScoreEl = document.querySelector(".highscoreList")
 //If no high scores yet, put that on page.  IF high scores, get them from local storage and output them.
 function Init() {
     highScoreEl.innerhtml = "";
-    if (localStorage.getItem("highscores") === null) {
+    if (localStorage.getItem("scores") === null) {
         var noScoresEl = document.createElement("h1");
         noScoresEl.setAttribute("class", "main");
+        noScoresEl.textContent = "No Scores Available Yet";
         highScoreEl.appendChild(noScoresEl);
     } else {
         console.log("In the else section");
-        highScores = JSON.parse(localStorage.getItem("highscores"));
+        highScores = JSON.parse(localStorage.getItem("scores"));
         console.log(highScores);
         var scoreEl;
         var first;
@@ -25,7 +26,7 @@ function Init() {
             highScoreEl.appendChild(scoreEl);
 
             console.log(highScore);
-            console.log(highScore.highName);
+            //console.log(highScore.highName);
 
             //splitHighScore = highScore.split(",");
             //console.log(splitHighScore);
@@ -56,5 +57,19 @@ clearButtonEl.addEventListener("click", function() {
     console.log("Clear Highscores Button Clicked!");
 
     //Remove highScores from local storage
-    localStorage.removeItem("highScores");
+    
+    if (localStorage.getItem("scores") !== null) {
+        localStorage.removeItem("scores");
+        highScoreEl.innerhtml = "";
+        for (i=0; i < highScores.length; i++) {
+            highScoreEl.textContent = "";
+        }
+    }
+    var noScoresEl = document.createElement("h1");
+    noScoresEl.setAttribute("class", "main");
+    noScoresEl.textContent = "No Scores Available Yet";
+    if (highScoreEl.textContent !== "No Scores Available Yet") {
+        highScoreEl.appendChild(noScoresEl);
+    }
+    
 });

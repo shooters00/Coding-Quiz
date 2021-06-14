@@ -8,10 +8,11 @@ var scoreEl = document.querySelector("#myScore");
 var initialEl;
 var quizQuestions = [];
 var thisQuestion = [];
-var myAnswer=[];
-var countdown = 5;
-var score=0;
-var highscore;
+//var myAnswer;
+var countdown = 10;
+var score = 0;
+var count = 0;
+//var highscore;
 
 //Things to load on page open
 function Init() {
@@ -19,39 +20,39 @@ function Init() {
     console.log(quizQuestionsObject);
 }
 
-//Function to fun when the start button is pushed to commence the game
-function startGame(i) {
+//Function to run when the start button is pushed to commence the game
+function startGame() {
     //isWin = false;
-    var count = 0;
+
+    //Only run the first time
+    if (count === 0) {
+        //Need to hide the main element & show the quiz element
+        mainEl.setAttribute("style", "display: none");
+        quizEl.setAttribute("style", "display: block");
+        startCountdown();
+    }
     
-    //Need to hide the main element & show the quiz element
-    mainEl.setAttribute("style", "display: none");
-    quizEl.setAttribute("style", "display: block");
-    startCountdown();
-
+    //Come back and run these each time the count increases
     pullQuestion(count);
-    displayQuestion(count);
+    displayQuestion();
     answerQuestion();
-    checkAnswer();
-
-    //Need to request first question/answer from quiz objects function & increment each time 
-    //for (i=0; i < 10; i++) {
-
-    //}
-    //gameOver();
+    //checkAnswer();
 }
 
+//Pull one question
 function pullQuestion(num) {
     //Put this in another function
     thisQuestion = quizQuestionsObject[num];
     return thisQuestion;
 }
 
-function displayQuestion(num) {
+//Display the question
+function displayQuestion() {
     //Need to append child objects (quiz questions)
-    quizEl.textContent = thisQuestion.question;
+    
     //set the ul and make it empty here
     quizEl.innerhtml = "";
+    quizEl.textContent = thisQuestion.question;
     for (x=0; x < 4; x++) {
         var lix = document.createElement("li");
         //var buttonx = document.createElement("button");
@@ -62,31 +63,31 @@ function displayQuestion(num) {
     }
 }
 
+//Answer the Question
 function answerQuestion() {
     quizEl.addEventListener("click", function(event) {
         event.preventDefault();
-        myAnswer = event.target.textContent;
+        var myAnswer = event.target.textContent;
         console.log("I chose this one:");
         console.log(myAnswer);
+
+        //Check the answer
+        checkAnswer(myAnswer);
     })
-    return myAnswer;
 }
 
-function checkAnswer() {
-    console.log("Output this Question");
-    console.log(thisQuestion);
-    console.log("Output myAnswer");
-    console.log(myAnswer);
-    /*
-    if (thisQuestion === myAnswer[num]) {
+//Check the Answer
+function checkAnswer(myAnswer) {    
+    console.log(thisQuestion.answer);
+    if (thisQuestion.answer === myAnswer) {
         alert("You got it right");
         score = score + 10;
-    } else if (thisQuestion !== myAnswer[num]) {
+        count++;
+        startGame();
+    } else if (thisQuestion.answer !== myAnswer) {
         alert("You got it wrong");
-        countdown = countdown - 10;
-    } else {
-    }
-    */
+        countdown = countdown - 3;
+    } 
 }
 
 function startCountdown() {
@@ -144,11 +145,11 @@ function submitScore(event) {
     //localStorage.setItem("quiz", JSON.stringify(quiz));
 
     
-    if (localStorage.getItem("highscores") === null) {
+    if (localStorage.getItem("scores") === null) {
         highScores.unshift(thisHighScore);
       } else {
-        highScores = JSON.parse(localStorage.getItem("highscores"));
-            if (highScores.length > 5) {
+        highScores = JSON.parse(localStorage.getItem("scores"));
+            if (highScores.length > 4) {
                 highScores.shift();
                 highScores.unshift(thisHighScore);
                 //var numbers = [];
@@ -166,7 +167,7 @@ function submitScore(event) {
         }
     
       console.log("High scores" + highScores);
-      localStorage.setItem("highscores", JSON.stringify(highScores));
+      localStorage.setItem("scores", JSON.stringify(highScores));
       window.open("./high_scores.html");
 }
 
