@@ -94,7 +94,8 @@ function startCountdown() {
     // Sets Countdown
     var countdownInterval = setInterval(function() {
         if (countdown >= 0) {
-            countdownEl.textContent = countdown;
+            //countdownEl.textContent = countdown;
+            countdownEl.innerHTML = 'Timer: ' + countdown;
             countdown--;
         } else {
             console.log("countdown < 0");
