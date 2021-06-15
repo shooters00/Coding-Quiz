@@ -137,12 +137,11 @@ function gameOver() {
 //Submit the scores and save to local storage
 function submitScore(event) {
     event.preventDefault();
-    var thisHighScore = [
+    var thisHighScore = 
         {
             highName: initialsEl.value,
             highScore: score
-        }
-        ];
+        };
     var highScores = [];
     
     if (localStorage.getItem("scores") === null) {
