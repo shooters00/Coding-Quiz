@@ -9,9 +9,10 @@ var initialEl;
 var quizQuestions = [];
 var thisQuestion = [];
 //var myAnswer;
-var countdown = 10;
+var countdown = 50;
 var score = 0;
 var count = 0;
+var countdownInterval;
 //var highscore;
 
 //Things to load on page open
@@ -23,6 +24,10 @@ function Init() {
 //Function to run when the start button is pushed to commence the game
 function startGame() {
     //isWin = false;
+    if (count === 10) {
+        clearInterval(countdownInterval);
+        gameOver();
+    }
 
     //Only run the first time
     if (count === 0) {
@@ -30,13 +35,13 @@ function startGame() {
         mainEl.setAttribute("style", "display: none");
         quizEl.setAttribute("style", "display: block");
         startCountdown();
+        answerQuestion();
     }
     
     //Come back and run these each time the count increases
     pullQuestion(count);
     displayQuestion();
-    answerQuestion();
-    //checkAnswer();
+
 }
 
 //Pull one question
@@ -80,19 +85,17 @@ function answerQuestion() {
 function checkAnswer(myAnswer) {    
     console.log(thisQuestion.answer);
     if (thisQuestion.answer === myAnswer) {
-        alert("You got it right");
         score = score + 10;
         count++;
         startGame();
     } else if (thisQuestion.answer !== myAnswer) {
-        alert("You got it wrong");
-        countdown = countdown - 3;
+        countdown = countdown - 5;
     } 
 }
 
 function startCountdown() {
     // Sets Countdown
-    var countdownInterval = setInterval(function() {
+    countdownInterval = setInterval(function() {
         if (countdown >= 0) {
             //countdownEl.textContent = countdown;
             countdownEl.innerHTML = 'Timer: ' + countdown;
