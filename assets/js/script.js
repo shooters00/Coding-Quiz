@@ -9,12 +9,10 @@ var scoreEl = document.querySelector("#myScore");
 var initialEl;
 var quizQuestions = [];
 var thisQuestion = [];
-//var myAnswer;
 var countdown = 50;
 var score = 0;
 var count = 0;
 var countdownInterval;
-//var highscore;
 
 //Things to load on page open
 function Init() {
@@ -71,8 +69,6 @@ function answerQuestion() {
     quizEl.addEventListener("click", function(event) {
         event.preventDefault();
         var myAnswer = event.target.textContent;
-        console.log("I chose this one:");
-        console.log(myAnswer);
 
         //Check the answer
         checkAnswer(myAnswer);
@@ -103,22 +99,24 @@ function startCountdown() {
             countdownEl.innerHTML = 'Timer: ' + countdown;
             countdown--;
         } else {
-            console.log("countdown < 0");
             clearInterval(countdownInterval);
             gameOver();
         }
     }, 1000);
 }
 
+//When the game ends, this function runs
 function gameOver() {
     console.log("In Game Over function");
+
+    //Hide quiz, display results
     resultsEl.setAttribute("style", "display: block");
     quizEl.setAttribute("style", "display: none");
 
+    //Show final score
     scoreEl.textContent = score;
 
-    //var scoreEl = document.createElement("h1")
-    //var formEl = document.createElement("form");
+    //Setup form to take input
     initialsEl = document.createElement("input");
     var submitBtnEl = document.createElement("input");
 
@@ -131,13 +129,13 @@ function gameOver() {
 
     myForm.appendChild(initialsEl);
     myForm.appendChild(submitBtnEl);
-    //resultsEl.appendChild(scoreEl);
 
+    //Listen for submit of form
     submitBtnEl.addEventListener("click", submitScore);
 }
 
+//Submit the scores and save to local storage
 function submitScore(event) {
-    console.log("I'm submitting scores");
     event.preventDefault();
     var thisHighScore = [
         {
@@ -146,10 +144,6 @@ function submitScore(event) {
         }
         ];
     var highScores = [];
-    console.log("This high score" + thisHighScore);
-
-    //localStorage.setItem("quiz", JSON.stringify(quiz));
-
     
     if (localStorage.getItem("scores") === null) {
         highScores.unshift(thisHighScore);
@@ -158,42 +152,17 @@ function submitScore(event) {
             if (highScores.length > 4) {
                 highScores.shift();
                 highScores.unshift(thisHighScore);
-                //var numbers = [];
-                //for (i=0: i < 5; i++) {
-                    //numbers.push(highScores[i].highScore);
-
-                    //if (thisHighScore.highScore >= highScores[i].highScore) {
-                        //highScores.splice(i, 1);
-                        
-                    //} else {
-                    //}
             } else {
                     highScores.unshift(thisHighScore);
             }
         }
-    
-      console.log("High scores" + highScores);
       localStorage.setItem("scores", JSON.stringify(highScores));
       window.open("./high_scores.html");
 }
 
+//Initialize the program and start the game
 Init();
 buttonEl.addEventListener("click", startGame);
-
-
-
-
-/*
-
-    //If answer if correct (compare choice against quiQuestionsObject.answer), incrment i & continue
-    
-    //If answer is incorrect then decrement time (use a function)
-
-    //If no more questions exist, escape this function
-
-    //If time is up, escape game
-
-*/
 
     
 

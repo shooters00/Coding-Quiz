@@ -13,7 +13,8 @@ function Init() {
     } else {
         console.log("In the else section");
         highScores = JSON.parse(localStorage.getItem("scores"));
-        console.log(highScores);
+        console.log(highScores[0].highName);
+        console.log(highScores[0].highScore);
         var scoreEl;
         var first;
         var number;
@@ -33,7 +34,7 @@ function Init() {
 
             //first = highScore.filter(obj => {
                 //return obj.highName
-            }
+        }
         /*
         highScores.forEach(element => {
             console.log(this.highName);
