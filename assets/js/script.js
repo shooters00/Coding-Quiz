@@ -1,5 +1,6 @@
 var buttonEl = document.getElementById("start");
 var countdownEl = document.getElementById("countdown");
+var scoreHeadEl = document.getElementById("score");
 var mainEl = document.querySelector(".main");
 var quizEl = document.querySelector(".quiz");
 var resultsEl = document.querySelector("#results");
@@ -27,6 +28,7 @@ function startGame() {
     if (count === 10) {
         clearInterval(countdownInterval);
         gameOver();
+        return;
     }
 
     //Only run the first time
@@ -46,16 +48,12 @@ function startGame() {
 
 //Pull one question
 function pullQuestion(num) {
-    //Put this in another function
     thisQuestion = quizQuestionsObject[num];
     return thisQuestion;
 }
 
 //Display the question
 function displayQuestion() {
-    //Need to append child objects (quiz questions)
-    
-    //set the ul and make it empty here
     quizEl.innerhtml = "";
     quizEl.textContent = thisQuestion.question;
     for (x=0; x < 4; x++) {
@@ -86,10 +84,14 @@ function checkAnswer(myAnswer) {
     console.log(thisQuestion.answer);
     if (thisQuestion.answer === myAnswer) {
         score = score + 10;
+        scoreHeadEl.innerHTML = 'Score: ' + score;
         count++;
         startGame();
     } else if (thisQuestion.answer !== myAnswer) {
+        alert("Wrong answer!  Subtracting 5 seconds.  Deducted 5 points.");
         countdown = countdown - 5;
+        score = score - 5;
+        scoreHeadEl.innerHTML = 'Score: ' + score;
     } 
 }
 
@@ -100,7 +102,6 @@ function startCountdown() {
             //countdownEl.textContent = countdown;
             countdownEl.innerHTML = 'Timer: ' + countdown;
             countdown--;
-            
         } else {
             console.log("countdown < 0");
             clearInterval(countdownInterval);
