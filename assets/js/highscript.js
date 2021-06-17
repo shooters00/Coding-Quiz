@@ -11,11 +11,7 @@ function Init() {
         noScoresEl.textContent = "No Scores Available Yet";
         highScoreEl.appendChild(noScoresEl);
     } else {
-        console.log("In the else section");
         highScores = JSON.parse(localStorage.getItem("scores"));
-        console.log(highScores);
-        console.log(highScores[0].highName);
-        //console.log(highScores[0].highScore);
         var scoreEl;
         var first;
         var number;
@@ -36,13 +32,11 @@ Init();
 
 //Listen for back button and go back
 backButtonEl.addEventListener("click", function() {
-    console.log("Back Button Clicked!");
     window.open('index.html');
 });
 
 //Listen for clear of high scores and clear
 clearButtonEl.addEventListener("click", function() {
-    console.log("Clear Highscores Button Clicked!");
 
     //Remove highScores from local storage
     

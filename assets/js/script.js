@@ -17,7 +17,6 @@ var countdownInterval;
 //Things to load on page open
 function Init() {
     quizQuestionsObject = JSON.parse(localStorage.getItem("quiz"));
-    console.log(quizQuestionsObject);
 }
 
 //Function to run when the start button is pushed to commence the game
@@ -77,7 +76,6 @@ function answerQuestion() {
 
 //Check the Answer
 function checkAnswer(myAnswer) {    
-    console.log(thisQuestion.answer);
     if (thisQuestion.answer === myAnswer) {
         score = score + 10;
         scoreHeadEl.innerHTML = 'Score: ' + score;
@@ -107,7 +105,6 @@ function startCountdown() {
 
 //When the game ends, this function runs
 function gameOver() {
-    console.log("In Game Over function");
 
     //Hide quiz, display results
     resultsEl.setAttribute("style", "display: block");
