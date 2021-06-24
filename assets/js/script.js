@@ -1,6 +1,8 @@
 var buttonEl = document.getElementById("start");
 var countdownEl = document.getElementById("countdown");
 var scoreHeadEl = document.getElementById("score");
+var messageEl = document.getElementById("message");
+var messageWrongEl = document.getElementById("messageWrong");
 var mainEl = document.querySelector(".main");
 var quizEl = document.querySelector(".quiz");
 var resultsEl = document.querySelector("#results");
@@ -38,6 +40,8 @@ function startGame() {
     }
     
     //Come back and run these each time the count increases
+    //messageEl.setAttribute("style", "display: none");
+    //messageWrongEl.setAttribute("style", "display: none");
     pullQuestion(count);
     displayQuestion();
 
@@ -75,17 +79,22 @@ function answerQuestion() {
 }
 
 //Check the Answer
-function checkAnswer(myAnswer) {    
+function checkAnswer(myAnswer) {  
+    messageEl.setAttribute("style", "display: none");  
+    messageWrongEl.setAttribute("style", "display: none");
     if (thisQuestion.answer === myAnswer) {
         score = score + 10;
         scoreHeadEl.innerHTML = 'Score: ' + score;
+        messageEl.setAttribute("style", "display: block");
+        
         count++;
         startGame();
     } else if (thisQuestion.answer !== myAnswer) {
-        alert("Wrong answer!  Subtracting 5 seconds.  Deducted 5 points.");
+        //alert("Wrong answer!  Subtracting 5 seconds.  Deducted 5 points.");
         countdown = countdown - 5;
         score = score - 5;
         scoreHeadEl.innerHTML = 'Score: ' + score;
+        messageWrongEl.setAttribute("style", "display: block");
     } 
 }
 
@@ -105,6 +114,8 @@ function startCountdown() {
 
 //When the game ends, this function runs
 function gameOver() {
+    messageEl.setAttribute("style", "display: none");  
+    messageWrongEl.setAttribute("style", "display: none");
 
     //Hide quiz, display results
     resultsEl.setAttribute("style", "display: block");
@@ -123,6 +134,7 @@ function gameOver() {
 
     submitBtnEl.setAttribute("type", "submit");
     submitBtnEl.setAttribute("value", "Submit");
+    submitBtnEl.setAttribute("id", "submit");
 
     myForm.appendChild(initialsEl);
     myForm.appendChild(submitBtnEl);
@@ -153,7 +165,7 @@ function submitScore(event) {
             }
         }
       localStorage.setItem("scores", JSON.stringify(highScores));
-      window.open("./high_scores.html");
+      window.open("./high_scores.html", "_self");
 }
 
 //Initialize the program and start the game

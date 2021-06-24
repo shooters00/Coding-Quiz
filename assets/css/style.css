@@ -19,13 +19,20 @@ header {
     margin-left: auto;
     margin-right: auto;
     width: 300px;
+    text-align:center;
+}
+
+#start {
+    background-color: purple;
+    color: white;
+    border-radius: 25px;
 }
 
 #results {
     margin-top: 100px;
     margin-left: auto;
     margin-right: auto;
-    width: 300px;
+    width: 400px;
     display: none;
     text-align: center;
 }
@@ -49,8 +56,39 @@ header {
     font-size: 125%
 }
 
+.quiz li {
+    color: white;
+    background-color: purple;
+    border: 2px solid purple;
+    border-radius: 25px;
+}
+
+
+#message, #messageWrong {
+    display: none;
+    width: 500px;
+    font-size: 150%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
 li:hover {
     opacity: 0.5;
+}
+
+#goBack, #clearHigh, #submit {
+    background-color: purple;
+    color: white;
+    border-radius: 25px;
+}
+
+.highscoreList li {
+    margin: 2px;
+    background-color: powderblue;
+    border-radius: 25px;
+    text-align: left;
+    padding: 5px;
+    padding-left: 10px;
 }
 
 

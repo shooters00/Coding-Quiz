@@ -21,7 +21,7 @@ function Init() {
             scoreEl = document.createElement("li");
             first = highScores[i].highName;
             number = highScores[i].highScore;
-            scoreEl.textContent = first + " " + number;
+            scoreEl.textContent = "  " + first + " - " + number;
             highScoreEl.appendChild(scoreEl);
         }
     }
@@ -32,7 +32,7 @@ Init();
 
 //Listen for back button and go back
 backButtonEl.addEventListener("click", function() {
-    window.open('index.html');
+    window.open('index.html', "_self");
 });
 
 //Listen for clear of high scores and clear
